@@ -21,7 +21,7 @@ class Extension extends Router
                 $normalizedExtensionName = StringUtil::separatedToClassName(
                     $extensionName
                 );
-                $normalizedExtensionName = StringUtil::separatedToClassName(
+                $normalizedExtensionName = StringUtil::toCamelCase(
                     $normalizedExtensionName, '_'
                 );
 
@@ -32,7 +32,7 @@ class Extension extends Router
                 $normalizedModuleName = StringUtil::separatedToClassName(
                     $moduleName
                 );
-                $normalizedModuleName = StringUtil::separatedToClassName(
+                $normalizedModuleName = StringUtil::toCamelCase(
                     $normalizedModuleName, '_'
                 );
 
