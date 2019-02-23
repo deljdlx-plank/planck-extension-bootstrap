@@ -10,6 +10,25 @@ abstract class WebApplication extends \Planck\Application\WebApplication
 {
 
 
+    public function __construct($path = null, $instanceName = null, $autobuild = true)
+    {
+        parent::__construct($path, $instanceName, $autobuild);
+
+
+
+
+        $this->addExtension(\Planck\Extension\Bootstrap::class, '?');
+        $this->addExtension(\Planck\Extension\Tool::class, '?');
+
+        $this->addExtension(\Planck\Extension\Model::class, '?');
+
+        $this->addExtension(\Planck\Extension\FrontVendor::class, '?');
+        $this->addExtension(\Planck\Extension\ViewComponent::class, '?');
+
+
+    }
+
+
     public function getPublicFilepath()
     {
         return $this->getFilepathRoot().'/www';
