@@ -4,6 +4,7 @@
 namespace Planck\Extension\Bootstrap\Router;
 
 use Planck\Helper\StringUtil;
+use Planck\Routing\Route;
 use Planck\Routing\Router;
 
 class Extension extends Router
@@ -51,12 +52,27 @@ class Extension extends Router
                 echo $route->getOutput();
 
                 return $returnValue;
-
-
-
             }
 
-        });
+        })
+        ->setBuilder(function(Route $route) {
+
+            if($route->getRouter()->hasExtension()) {
+                $extension = $route->getRouter()->getExtension();
+                $extensionPath = strtolower(StringUtil::namespaceToSeparated($extension->getNamespaceName()));
+                $extensionName = StringUtil::camelCaseToSeparated($extension->getBaseName(), '_');
+
+                $module = StringUtil::camelCaseToSeparated($route->getRouter()->getModuleName());
+
+                $routerPath = StringUtil::camelCaseToSeparated(StringUtil::getClassBaseName($route->getRouter()));
+                return '/@extension/'.$extensionPath.'-'.$extensionName.'/'.$module.'/'.$routerPath.'['.$route->getName().']';
+            }
+
+
+
+
+        })
+        ;
 
 
 
